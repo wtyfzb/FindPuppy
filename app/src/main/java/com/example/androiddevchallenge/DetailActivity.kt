@@ -62,5 +62,4 @@ fun Detail(desc: String, photoUrl: String) {
             Text(text = desc)
         }
     }
-
 }
