@@ -33,7 +33,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.data.remote.Data
+import com.example.androiddevchallenge.remote.Data
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.google.gson.Gson
 import dev.chrisbanes.accompanist.glide.GlideImage
