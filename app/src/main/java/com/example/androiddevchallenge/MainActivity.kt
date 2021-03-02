@@ -15,47 +15,73 @@
  */
 package com.example.androiddevchallenge
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.example.androiddevchallenge.data.remote.Data
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.google.gson.Gson
+import dev.chrisbanes.accompanist.glide.GlideImage
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                MyApp()
+                MyApp(onButtonClick = {
+                    openDetail(it)
+                })
             }
         }
+    }
+
+    private fun openDetail(item: Dog) {
+        val intent = Intent(baseContext, DetailActivity::class.java)
+        intent.putExtra("name", item.name)
+        intent.putExtra("desc", item.desc)
+        intent.putExtra("photoUrl", item.photoUrl)
+        startActivity(intent)
     }
 }
 
 // Start building your app here!
 @Composable
-fun MyApp() {
+fun MyApp(onButtonClick: (item: Dog) -> Unit) {
     Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
-    }
-}
+        val fromJson = Gson().fromJson(Data.data, Dogs::class.java)
 
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun LightPreview() {
-    MyTheme {
-        MyApp()
-    }
-}
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            items(fromJson.dogs) { item ->
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .clickable {
+                            onButtonClick(item)
+                        },
+                ) {
+                    GlideImage(
+                        data = item.photoUrl,
+                        contentDescription = null
+                    )
 
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun DarkPreview() {
-    MyTheme(darkTheme = true) {
-        MyApp()
+                    Spacer(Modifier.height(16.dp))
+
+                    Text("Name : " + item.name + ", Age : " + item.age + ", Sex : " + item.sex)
+                }
+            }
+        }
     }
 }
