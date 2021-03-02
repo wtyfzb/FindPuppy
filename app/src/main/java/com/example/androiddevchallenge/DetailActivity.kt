@@ -60,7 +60,6 @@ fun Detail(name: String, desc: String, photoUrl: String) {
                 data = photoUrl,
                 contentDescription = null
             )
-
             Text(text = desc)
         }
     }
