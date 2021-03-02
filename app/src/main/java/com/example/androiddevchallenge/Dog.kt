@@ -25,4 +25,5 @@ data class Dog(
     val sex: String,
     val photoUrl: String,
     val desc: String
+
 )

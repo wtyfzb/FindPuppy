@@ -37,7 +37,6 @@ class DetailActivity : AppCompatActivity() {
             MyTheme {
                 intent?.let {
                     Detail(
-                        it.getStringExtra("name")!!,
                         it.getStringExtra("desc")!!,
                         it.getStringExtra("photoUrl")!!
                     )
@@ -48,7 +47,7 @@ class DetailActivity : AppCompatActivity() {
 }
 
 @Composable
-fun Detail(name: String, desc: String, photoUrl: String) {
+fun Detail(desc: String, photoUrl: String) {
     Surface(color = MaterialTheme.colors.background) {
         val padding = 16.dp
         Column(
@@ -63,4 +62,5 @@ fun Detail(name: String, desc: String, photoUrl: String) {
             Text(text = desc)
         }
     }
+
 }
