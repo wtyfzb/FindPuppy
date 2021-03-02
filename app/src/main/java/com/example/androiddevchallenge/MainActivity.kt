@@ -22,9 +22,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -43,9 +43,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                MyApp(onButtonClick = {
-                    openDetail(it)
-                })
+                MyApp(
+                    onButtonClick = {
+                        openDetail(it)
+                    }
+                )
             }
         }
     }
@@ -80,9 +82,7 @@ fun MyApp(onButtonClick: (item: Dog) -> Unit) {
                         data = item.photoUrl,
                         contentDescription = null
                     )
-
                     Spacer(Modifier.height(16.dp))
-
                     Text("Name : " + item.name + ", Age : " + item.age + ", Sex : " + item.sex)
                 }
             }
